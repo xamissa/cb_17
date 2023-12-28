@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_picking_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//group[@name='other_infos']" position="inside">
+            <field name="is_it_wrapped"/>
+            <field name="message"/>
+        </xpath>
+        </field>
+        </record>
+
+        <record id="view_stock_move_line_operation_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.move.line.operations.tree.inherit</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='quantity']" position="attributes">
+                    <!-- <field name="qty_done" readonly="1"/> -->
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- related to magento -->
+        <!-- <record id="view_stock_quant_tree_editable_inherit" model="ir.ui.view">
+            <field name="name">stock.quant.inherit</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.view_stock_quant_tree_editable" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_id']" position="before">
+                    <field name="magento_product_count" invisible="1"/>
+                    <field name="odoo_product_id" invisible="1"/>
+                    <field name="magento_instance_id" invisible="1"/>
+                </xpath>
+            </field>
+       </record> -->
+
+       <record id="quant_search_view_inherit" model="ir.ui.view">
+           <field name="name">stock.quant.search.inherit</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='transit_loc']" position="after">
+                    <filter name='abc_location' string="ABC and Online Loacation" domain="[('location_id.complete_name' ,'in', ('WH/Stock/ABC','WH/Stock/ABC/CB ONLINE'))]"/>
+                    <!-- related to magento -->
+                    <!-- <filter name='magento_instance' string="Magento Instance" domain="[('magento_instance_id' ,'=', 'M2T-Magneto')]"/> -->
+                </xpath>
+            </field>
+        </record>
+
+        <!-- related to magento -->
+        <!-- <record id="stock.dashboard_open_quants" model="ir.actions.act_window">
+            <field name="name">Stock On Hand</field>
+            <field name="context">{'search_default_abc_location': 1,'search_default_magento_instance': 1}</field>
+            <field name="res_model">stock.quant</field>
+        </record> -->
+
+        <!-- related to magento -->
+        <!-- <menuitem id="magento_menu_valuation" name="Inventory Report"
+              parent="odoo_magento2_ept.menu_magento_sales_and_customer" sequence="5"
+              action="stock.action_view_quants"/> -->
+
+    </data>
+</odoo>

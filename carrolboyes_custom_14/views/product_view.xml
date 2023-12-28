@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="carrol_product_template_form_view_inherit" model="ir.ui.view">
+            <field name="name">carrol.product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Product" name="product_development">
+                        <group>
+                            <group>
+                                <field name="prod_art_fun_use" widget="many2many_tags"/>
+                                <field name="prod_art_design"/>
+                                <field name="prod_art_range"/>
+                                <field name="prod_art_designer"/>
+                                <field name="prod_art_prototyper"/>
+                            </group>
+                            <group>
+                                <field name="prod_buying_proposed_date"/>
+                                <field name="prod_art_materials" widget="many2many_tags"/>
+                                <field name="prod_art_colours" widget="many2many_tags"/>
+                                <field name="prod_art_finish" widget="many2many_tags"/>
+                                <field name="art_note"/>
+                                <field name="prod_design" widget="many2many_tags"/>
+                                <field name="prod_status" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="retail_ready"/>
+				<field name="retail_ready_notes"/>
+                                <field name="packaging_elements"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Care &amp; Usage" name="care_usage">
+                        <group>
+                            <group>
+                                <field name="dishwasher_safe"/>
+                                <field name="microwavwe_safe"/>
+                                <field name="sp_care_attr"/>
+                            </group>
+                            <group>
+                                <field name="oven_safe"/>
+                                <field name="food_safe"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Weights and Dimensions" name="weight_dimensions">
+                        <group>
+                            <group string="Product">
+                                <field name="p_weight"/>
+                                <field name="p_length"/>
+                                <field name="p_width"/>
+                                <field name="p_height"/>
+                                <field name="p_diameter"/>
+                                <field name="p_dimension"/>
+                            </group>
+                            <group string="Packaged">
+                                <label for="weight" string="Packaged Weight (g)"/>
+                                <div class="o_row" name="weight">
+                                    <field name="weight"/>
+                                    <span><!--field name="weight_uom_name"/-->g</span>
+                                </div>
+                                <field name="pack_length"/>
+                                <field name="pack_width"/>
+                                <field name="pack_height"/>
+                                <field name="pack_diameter"/>
+                                <field name="pack_dimensions"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="capacity"/>
+                                <field name="part_weight"/>
+                                <field name="part_deimension"/>
+                                <field name="part_capacity"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Copy" name="copy">
+                        <group>
+                            <group>
+                                <field name="long_desc_copy"/>
+                                <field name="short_desc_copy"/>
+                                <field name="bulletin_copy"/>
+                                <field name="ps_attributes"/>
+                                <field name="pack_copy"/>
+                                <field name="ingredients"/>
+                                <field name="assembly_instructions"/>
+                                <field name="warning_copy"/>
+                            </group>
+                            <group>
+                                <field name="cu_instructions"/>
+                                <field name="in_box"/>
+                                <field name="pairs_with"/>
+                                <field name="upsell"/>
+                                <field name="merchandising"/>
+                                <field name="copy_tags"/>
+                                <field name="shop_range"/>
+                                <field name="qr_destination"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook//page[@name='general_information']//field[@name='categ_id']" position="after">
+                    <field name="warranty_period"/>
+                    <field name="warranty_type"/>
+                    <field name="sp_comp_attr"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="carrol_product_template_readonly_view" model="ir.ui.view">
+            <field name="name">product.template.readonly</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('carrolboyes_custom_14.group_read_only_products')])]"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="create">0</attribute>
+                    <attribute name="edit">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="carrol_product_template_readonly_tree" model="ir.ui.view">
+            <field name="name">product.template.readonly.tree</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('carrolboyes_custom_14.group_read_only_products')])]"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">0</attribute>
+                    <attribute name="edit">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="carrol_product_template_readonly_kanban" model="ir.ui.view">
+            <field name="name">product.template.readonly.kanban</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('carrolboyes_custom_14.group_read_only_products')])]"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="carrol_product_product_readonly_kanban" model="ir.ui.view">
+            <field name="name">product.product.readonly.kanban</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_kanban_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('carrolboyes_custom_14.group_read_only_products')])]"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="create">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="carrol_product_product_readonly_tree" model="ir.ui.view">
+            <field name="name">product.product.readonly.tree</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view" />
+            <field name="groups_id" eval="[(6, 0, [ref('carrolboyes_custom_14.group_read_only_products')])]"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="create">0</attribute>
+                    <attribute name="edit">0</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

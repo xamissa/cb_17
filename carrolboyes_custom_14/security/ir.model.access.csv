@@ -1,0 +1,16 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"product_art_function_use_user","product_art_function_use_name","carrolboyes_custom_14.model_product_art_function_use","base.group_user",1,1,1,1
+"product_art_design_user","product_art_design_name","carrolboyes_custom_14.model_product_art_design","base.group_user",1,1,1,1
+"product_art_range_user","product_art_range_name","carrolboyes_custom_14.model_product_art_range","base.group_user",1,1,1,1
+"product_art_designer_user","product_art_designer_name","carrolboyes_custom_14.model_product_art_designer","base.group_user",1,1,1,1
+"product_art_prototyper_user","product_art_prototyper_name","carrolboyes_custom_14.model_product_art_prototyper","base.group_user",1,1,1,1
+"product_art_materials_user","product_art_materials","carrolboyes_custom_14.model_product_art_materials","base.group_user",1,1,1,1
+"product_art_colours_user","product_art_colours","carrolboyes_custom_14.model_product_art_colours","base.group_user",1,1,1,1
+"product_art_finish_user","product_art_finish","carrolboyes_custom_14.model_product_art_finish","base.group_user",1,1,1,1
+"product_design_user","product_design","carrolboyes_custom_14.model_product_design","base.group_user",1,1,1,1
+"access_product_main_category_user","product.main.category user","model_product_main_category","base.group_user",1,1,1,1
+"access_product_sub_category_user","product.sub.category user","model_product_sub_category","base.group_user",1,1,1,1
+"access_product_group_user","product.group user","model_product_group","base.group_user",1,1,1,1
+"access_product_sub_group_user","product.sub.group user","model_product_sub_group","base.group_user",1,1,1,1
+"warranty_type_user","warranty_type","carrolboyes_custom_14.model_warranty_type","base.group_user",1,1,1,1
+"access_product_status_user","product.status user","model_product_status","base.group_user",1,1,1,1

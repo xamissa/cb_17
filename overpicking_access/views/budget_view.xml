@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="crossovered_budget_inherited_view_form">
+        <field name="name">crossovered.budget.view.inherited.form</field>
+        <field name="model">crossovered.budget</field>
+        <field name="inherit_id" ref="account_budget.crossovered_budget_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='budget_lines']" position="after">
+                <page string="Approval">
+                    <div>
+                        <field name="approval_ids" readonly="1" force_save="1">
+                            <tree decoration-danger="status == 'rejected'" decoration-warning="status == 'none'" decoration-success="status == 'approved'">
+                                <field name="name"/>
+                                <field name="user_id" widget='many2one_avatar_user'/>
+                                <field name="state"/>
+                                <field name="status"/>
+                                <field name="approval_date"/>
+                                <field name="required_user_ids" widget="many2many_tags"/>
+                            </tree>
+                        </field>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
