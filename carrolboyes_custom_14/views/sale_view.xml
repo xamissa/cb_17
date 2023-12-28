@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id="sale_order_form_inherit" model="ir.ui.view">
+	    <field name="name">sale.order.form.inherit</field>
+	    <field name="model">sale.order</field>
+	    <field name="inherit_id" ref="sale.view_order_form"/>
+	    <field name="arch" type="xml">
+                <field name="pricelist_id" position="replace">
+			<field name="pricelist_id" options="{'no_open':True,'no_create': True}" readonly="1"/>
+			<field name="pricelist_id" options="{'no_open':True,'no_create': True}" invisible="1"/>
+		</field>
+                <xpath expr="//group[@name='sale_shipping']" position="inside">
+		    <field name="is_it_wrapped"/>
+		    <field name="message"/>
+		</xpath>
+	    </field>
+        </record>
+
+        <record id="view_order_form_inherit_sale_stock_inherit" model="ir.ui.view">
+	    <field name="name">sale.order.form.sale.stock.inherit</field>
+	    <field name="model">sale.order</field>
+	    <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+	    <field name="arch" type="xml">
+		<xpath expr="//field[@name='order_line']/tree/field[@name='route_id']" position="replace">
+                    <field name="route_id" groups="stock.group_adv_location" options="{'no_create': True}" optional="hide" readonly="1"/>
+	            <field name="route_id" groups="stock.group_adv_location" options="{'no_create': True}" optional="hide" invisible="1"/>
+		</xpath>
+	    </field>
+        </record>
+
+        <!--Menuitem for backorders-->
+        <!--menuitem action="stock.stock_move_action" name="Back Orders" id="back_order_menu" parent="sale.menu_sale_report" sequence="2"/-->	
+
+    </data>
+</odoo>

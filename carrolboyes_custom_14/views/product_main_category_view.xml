@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="carrol_product_main_category_form_view" model="ir.ui.view">
+            <field name="name">product.main.category.form</field>
+            <field name="model">product.main.category</field>
+            <field name="arch" type="xml">
+                <form string="Component Classification">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="carrol_product_main_category_tree_view" model="ir.ui.view">
+            <field name="name">product.main.category.tree</field>
+            <field name="model">product.main.category</field>
+            <field name="arch" type="xml">
+                <tree string="Component Classification">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carrol_product_main_category_action" model="ir.actions.act_window">
+            <field name="name">Component Classification</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.main.category</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Component Classification found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="carrol_product_main_category_menu" action="carrol_product_main_category_action" parent="stock.menu_stock_inventory_control"/>
+    </data>
+</odoo>

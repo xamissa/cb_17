@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="carrol_product_art_form_view" model="ir.ui.view">
+            <field name="name">product.art.function.use.form</field>
+            <field name="model">product.art.function.use</field>
+            <field name="arch" type="xml">
+                <form string="Product Art Function Use">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_tree_view" model="ir.ui.view">
+            <field name="name">product.art.function.use.tree</field>
+            <field name="model">product.art.function.use</field>
+            <field name="arch" type="xml">
+                <tree string="Product Art Function Use">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_action" model="ir.actions.act_window">
+            <field name="name">Design Name</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.art.function.use</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Product Art Function Use found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="carrol_product_art_menu" action="carrol_product_art_action" parent="stock.menu_stock_inventory_control"/>
+
+        <!-- Product Art Design -->
+        <record id="carrol_product_art_design_form_view" model="ir.ui.view">
+            <field name="name">product.art.design.form</field>
+            <field name="model">product.art.design</field>
+            <field name="arch" type="xml">
+                <form string="Product Art Design">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_design_tree_view" model="ir.ui.view">
+            <field name="name">product.art.design.tree</field>
+            <field name="model">product.art.design</field>
+            <field name="arch" type="xml">
+                <tree string="Product Art Design">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_design_action" model="ir.actions.act_window">
+            <field name="name">Product Art Design</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.art.design</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Product Art Design found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="carrol_product_art_design_menu" action="carrol_product_art_design_action" parent="stock.menu_stock_inventory_control"/>
+
+        <!-- Product Art Designer -->
+        <record id="carrol_product_art_designer_form_view" model="ir.ui.view">
+            <field name="name">product.art.designer.form</field>
+            <field name="model">product.art.designer</field>
+            <field name="arch" type="xml">
+                <form string="Product Art Designer">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_designer_tree_view" model="ir.ui.view">
+            <field name="name">product.art.designer.tree</field>
+            <field name="model">product.art.designer</field>
+            <field name="arch" type="xml">
+                <tree string="Product Art Designer">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_designer_action" model="ir.actions.act_window">
+            <field name="name">Product Art Designer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.art.designer</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Product Art Designer found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="carrol_product_art_designer_menu" action="carrol_product_art_designer_action" parent="stock.menu_stock_inventory_control"/>
+
+        <!-- Product Art Prototyper -->
+        <record id="carrol_product_art_prototyper_form_view" model="ir.ui.view">
+            <field name="name">product.art.prototyper.form</field>
+            <field name="model">product.art.prototyper</field>
+            <field name="arch" type="xml">
+                <form string="Product Art Prototyper">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_prototyper_tree_view" model="ir.ui.view">
+            <field name="name">product.art.prototyper.tree</field>
+            <field name="model">product.art.prototyper</field>
+            <field name="arch" type="xml">
+                <tree string="Product Art Prototyper">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_prototyper_action" model="ir.actions.act_window">
+            <field name="name">Product Art Prototyper</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.art.prototyper</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Product Art Prototyper found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="carrol_product_art_prototyper_menu" action="carrol_product_art_prototyper_action" parent="stock.menu_stock_inventory_control"/>
+
+        <!-- Product Art Range -->
+        <record id="carrol_product_art_range_form_view" model="ir.ui.view">
+            <field name="name">product.art.range.form</field>
+            <field name="model">product.art.range</field>
+            <field name="arch" type="xml">
+                <form string="Product Art Range">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_range_tree_view" model="ir.ui.view">
+            <field name="name">product.art.range.tree</field>
+            <field name="model">product.art.range</field>
+            <field name="arch" type="xml">
+                <tree string="Product Art Range">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carrol_product_art_range_action" model="ir.actions.act_window">
+            <field name="name">Product Art Range</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.art.range</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Product Art Range found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="carrol_product_art_range_menu" action="carrol_product_art_range_action" parent="stock.menu_stock_inventory_control"/>
+    </data>
+</odoo>

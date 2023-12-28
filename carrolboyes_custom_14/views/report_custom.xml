@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <template id="report_purchase_order_inherit" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//div[@id='informations']" position="after">
+            <div id="informations_new" class="row mt32 mb32">
+                <div t-if="o.payment_term_id" class="col-3 bm-2">
+                    <strong>Payment Term:</strong>
+                    <p t-field="o.payment_term_id" class="m-0"/>
+                </div>
+                <div t-if="o.shipment_date" class="col-3 bm-2">
+                    <strong>Shipment Date:</strong>
+                    <p t-field="o.shipment_date" class="m-0"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="carrol_report_purchaseorder_document" inherit_id="purchase_stock.report_purchaseorder_document">
+        <xpath expr="//p[@t-field='o.incoterm_id.code']" position="replace">
+            <p t-field="o.incoterm_id.name" class="m-0"/>
+        </xpath>
+    </template>
+
+    <template id="carrol_report_purchasequotation_document" inherit_id="purchase_stock.report_purchasequotation_document">
+        <xpath expr="//p[@t-field='o.incoterm_id.code']" position="replace">
+            <p t-field="o.incoterm_id.name" class="m-0"/>
+        </xpath>
+    </template>
+
+    <template id="report_deliveryslip_inherit" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@name='div_sched_date']" position="replace">
+            <div t-if="o.state" class="col-auto" name="div_sched_date">
+                <strong>Pack Date:</strong>
+                <t t-if="o.state == 'done'">
+                    <p t-field="o.date_done"/>
+                </t>
+                <t t-if="o.state != 'done'">
+                    <p t-field="o.scheduled_date"/>
+                </t>
+            </div>
+            <div t-if="o.po_number" class="col-auto">
+               <strong>PO Number:</strong>
+               <p t-field="o.po_number"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@name='signature']" position="after">
+            <div t-if="o.is_it_wrapped and o.message" class="col-auto" name="message_on_gift">
+		    <strong>Sale Order Comments:</strong>
+		    <div t-if="o.is_it_wrapped" class="col-3 bm-2">
+                        <strong>Is it Wrapped:</strong>
+                        <p t-field="o.is_it_wrapped" class="m-0"/>
+                    </div>
+                    <div t-if="o.message">
+                        <strong>Message:</strong>
+                        <p t-field="o.message" class="m-0"/>
+                    </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_picking_inherit" inherit_id="stock.report_picking">
+         <xpath expr="//p[@t-field='o.note']" position="after">
+            <div t-if="o.is_it_wrapped and o.message" class="col-auto" name="message_on_gift">
+		    <strong>Sale Order Comments:</strong>
+		     <div t-if="o.is_it_wrapped" class="col-3 bm-2">
+                        <strong>Is it Wrapped:</strong>
+                        <p t-field="o.is_it_wrapped" class="m-0"/>
+                    </div>
+                    <div t-if="o.message">
+                        <strong>Message:</strong>
+                        <p t-field="o.message" class="m-0"/>
+                    </div>
+            </div>
+        </xpath>
+        <xpath expr="//th[@name='th_product']" position="after">
+            <th name="th_product">
+                <strong>QTY Picked</strong>
+            </th>
+        </xpath>
+
+        <!-- xpath not available in v17 -->
+	    <!-- <xpath expr="//t[@t-foreach='move.move_line_ids.sorted(key=lambda ml: ml.location_id.id)']/tr/td[1]" position="after">
+            <td>
+            </td>
+        </xpath> -->
+
+    </template>
+
+</odoo>

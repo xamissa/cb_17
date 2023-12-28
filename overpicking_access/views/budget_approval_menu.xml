@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- budget Approval -->
+    <record id="budget_approval_view_tree" model="ir.ui.view">
+        <field name="name">budget.approval.view.tree</field>
+        <field name="model">budget.approval</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name"/>
+                <field name="approval_role" widget='many2many_tags'/>
+                <field name="user_ids" widget='many2many_tags'/>
+                <field name="level"/>
+                <field name="company_id" invisible="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="budget_approval_view_form" model="ir.ui.view">
+        <field name="name">budget.approval.view.form</field>
+        <field name="model">budget.approval</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                <field name="name"/>
+                            <field name="level"/>
+                            <field name="approval_role"  widget='many2many_tags' />
+                            <field name="user_ids" widget='many2many_tags' invisible="True"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="budget_approval_action" model="ir.actions.act_window">
+        <field name="name">Budget Approval</field>
+        <field name="res_model">budget.approval</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Approval
+            </p><p>
+              Approval
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_budget_approval_process"
+        name="Budget Approval"
+        action="budget_approval_action"
+        parent="account.account_management_menu" sequence="6"/>
+
+</odoo>

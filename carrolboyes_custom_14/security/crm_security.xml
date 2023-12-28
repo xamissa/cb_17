@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+    <record id="sales_team_assigned_users" model="ir.rule">
+        <field name="name">Assigned Sales Team</field>
+        <field ref="crm.model_crm_team" name="model_id"/>
+        <field name="domain_force">['|',('assigned_user_ids','in',user.id),('assigned_user_ids','=',False)]</field>
+    </record>
+    <record id="quotation_assigned_users" model="ir.rule">
+        <field name="name">Assigned Quotation</field>
+        <field ref="sale.model_sale_order" name="model_id"/>
+        <field name="domain_force">['|',('team_id.assigned_user_ids','in',user.id),('team_id.assigned_user_ids','=',False)]</field>
+    </record>
+    <record id="lead_assigned_users" model="ir.rule">
+        <field name="name">Assigned Activities</field>
+        <field ref="crm.model_crm_lead" name="model_id"/>
+        <field name="domain_force">['|',('team_id.assigned_user_ids','in',user.id),('team_id.assigned_user_ids','=',False)]</field>
+    </record>
+</data>
+</odoo>
