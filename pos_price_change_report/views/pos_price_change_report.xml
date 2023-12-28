@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="view_pos_price_change_tree" model="ir.ui.view">
+        <field name="name">report.pos.price.change.tree</field>
+        <field name="model">report.pos.price.change</field>
+        <field name="arch" type="xml">
+            <tree string="POS Price Change" create="0" sample="1">
+            	<field name="session_id" string="POS Session"/>
+            	<field name="order_id" string="Order No."/>
+                <field name="product_id" string="Product"/>
+                <field name="product_qty" string="Quantity"/>
+                <field name="unit_price" string="Unit Price"/>
+                <field name="updated_price" string="Updated Price"/>
+                <field name="user_id" string="Manager"/>
+                <field name="date" string="Date &amp; time"/>
+            </tree>
+        </field>
+    </record>
+
+	<record id="action_report_pos_price_change" model="ir.actions.act_window">
+        <field name="name">POS Price Change</field>
+        <field name="res_model">report.pos.price.change</field>
+        <field name="view_mode">tree</field>
+        <!-- <field name="search_view_id" ref="view_report_pos_order_search"/> -->
+        <field name="context">{'group_by_no_leaf':1,'group_by':[]}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No data yet!
+            </p><p>
+                Create a new POS order
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_report_pos_change_price" name="POS Price Change" action="action_report_pos_price_change" parent="point_of_sale.menu_point_rep" sequence="99"/>
+</odoo>
