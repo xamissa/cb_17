@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="product_temp_barcode_labels_extra">
+        <t t-call="web.basic_layout">
+           <div t-att-style="'padding-top:12mm;padding-bottom:14mm;'">
+              <t t-set="prod_cnt" t-value="0"/>
+              <t t-foreach="docs" t-as="doc">
+                  <t t-if="prod_cnt != 0">
+                      <t t-if="prod_cnt %21 ==0">
+                        <p style="page-break-before:always;padding-top:8mm;"/>
+                        <t t-set="prod_cnt" t-value="0"/>
+                    </t>
+                  </t>
+                    <table class="my-0 table table-sm table-borderless">
+                        <t t-set="barcode_info" t-value="get_barcode_details_info"/>
+                        <t t-set="total_row" t-value="doc.qty % 4"/>
+                        <t t-set="r1" t-value="0"/>
+                        <t t-set="cnt" t-value="0"/>
+                        <t t-if="total_row == 0">
+                            <t t-set="r1" t-value="round(doc.qty / 4)"/>
+                        </t>
+                        <t t-else="">
+                            <t t-set="r1" t-value="round(doc.qty / 4) + 1"/>
+                        </t>
+                        <t t-foreach="range(r1)" t-as="row">
+                            <tr>
+                                <t t-foreach="range(4)" t-as="column">
+                                  <t t-set="cnt" t-value="cnt + 1"/>
+                                  <t t-if="cnt &lt; 5">
+                                        <t t-set="barcode_size" t-value="'width:33mm;height:4mm'"/>
+                                        <t t-set="table_style" t-value="'border: 0px solid black;'"/>
+                                        <t t-if="prod_cnt == 0">
+                                            <t t-set="table_style" t-value="'width:48mm !important; height:11.10mm !important;padding-top:7.5mm !important;' + table_style"/>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-if = "prod_cnt &lt; 7">
+                                                <t t-set="table_style" t-value="'width:48mm !important; height:11.10mm !important;padding-top:8mm !important;' + table_style"/>
+                                            </t>
+                                            <t t-elif="prod_cnt &lt; 10">
+                                                <t t-set="table_style" t-value="'width:48mm !important; height:11.10mm !important;padding-top:9mm !important;' + table_style"/>
+                                            </t>
+                                            <t t-elif="prod_cnt &lt; 15">
+                                                <t t-set="table_style" t-value="'width:48mm !important; height:11.10mm !important;padding-top:10mm !important;' + table_style"/>
+                                            </t>
+                                            <t t-else="">
+                                                <t t-set="table_style" t-value="'width:48mm !important; height:11.10mm !important;padding-top:10.8mm !important;' + table_style"/>
+                                            </t>
+                                        </t>
+                                        <t t-if="doc.qty &gt;= cnt">
+                                            <td>
+                                                <div t-att-style="table_style+'font-size: 60%;line-height: 115%;text-align:center;'">
+
+                                                    <t t-if="doc.product_id.barcode_desc">
+                                                         <t t-if="doc.product_id.is_blank_product">
+                                                            <span/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <t t-if="len(doc.product_id.barcode_desc) &gt; 16">
+                                                                <span t-esc="doc.product_id.barcode_desc[:16]"/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="doc.product_id.barcode_desc"/>
+                                                            </t>
+                                                            <t t-if="doc.price_barcode">
+                                                                <span style="font-weight: 900;font-size:12px;" t-field="doc.pricelist_item.fixed_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_item.currency_id}"/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span style="font-weight: 900;font-size:12px;" t-field="doc.product_id.list_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.product_id.currency_id}"/>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="doc.product_id.is_blank_product">
+                                                            <span/>
+                                                        </t>
+
+                                                        <t t-else="">                                          
+                                                            <t t-if="len(doc.product_id.name) &gt; 16">
+                                                                <span t-esc="doc.product_id.name[:16]"/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span t-field="doc.product_id.name"/>
+                                                            </t>
+                                                            <t t-if="doc.price_barcode">
+                                                                <span style="font-weight: 900;font-size:12px;" t-field="doc.pricelist_item.fixed_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_item.currency_id}"/>
+                                                            </t>
+                                                            <t t-else="">
+                                                                <span style="font-weight: 900;font-size:12px;" t-field="doc.product_id.list_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.product_id.currency_id}"/>
+                                                            </t>
+                                                        </t>
+                                                    </t>
+                                                   <!--  <span class="text-nowrap" t-field="doc.product_id.default_code"/> -->
+                                                    <t t-if="doc.product_id.barcode">
+                                                        <t t-if="doc.product_id.is_blank_product">
+                                                            <span/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (barcode_info['barcode_type'], doc.product_id.barcode, 800, 150)" style="width: 220px;height:14px;display: block;margin-left:-20px; "/>
+                                                            <span class="text-nowrap" t-field="doc.product_id.default_code"/>-
+                                                            <span t-field="doc.product_id.barcode"/>
+                                                        </t>
+                                                        
+                                                    </t>
+                                                </div>
+                                            </td> 
+                                        </t>
+                                        <t t-else="">                                        
+                                            <td>   
+                                                <div t-att-style="table_style+'font-size: 60%;line-height: 115%;text-align:center;'">  
+                                                </div>
+                                            </td>
+                                        </t>
+                                    </t>
+                                  <t t-elif="cnt &gt; 48">
+                                      <t t-set="barcode_size" t-value="'width:33mm;height:4mm'"/>
+                                       <t t-set="table_style" t-value="'border: 0px solid black;'"/>
+                                       <t t-if="prod_cnt == 0">
+                                            <t t-set="table_style" t-value="'width:48mm !important; height:11.10mm !important;padding-top:9.5mm !important;' + table_style"/>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-set="table_style" t-value="'width:48mm !important; height:11.10mm !important;padding-top:9.5mm !important;' + table_style"/>
+                                        </t>
+                                        <td t-if="doc.qty &gt;= cnt">
+                                            <div t-att-style="table_style+'font-size: 60%;line-height: 115%;text-align:center;'">
+                                                <t t-if="doc.product_id.barcode_desc">
+                                                    <t t-if="doc.product_id.is_blank_product">
+                                                        <span/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="len(doc.product_id.barcode_desc) &gt; 16">
+                                                            <span t-esc="doc.product_id.barcode_desc[:16]"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-field="doc.product_id.barcode_desc"/>
+                                                        </t>
+                                                        <t t-if="doc.price_barcode">
+                                                            <span style="font-weight: 900;font-size:12px;" t-field="doc.pricelist_item.fixed_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_item.currency_id}"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span style="font-weight: 900;font-size:12px;" t-field="doc.product_id.list_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.product_id.currency_id}"/>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-if="doc.product_id.is_blank_product">
+                                                        <span/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="len(doc.product_id.name) &gt; 16">
+                                                            <span t-esc="doc.product_id.name[:16]"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-field="doc.product_id.name"/>
+                                                        </t>
+                                                        <t t-if="doc.price_barcode">
+                                                            <span style="font-weight: 900;font-size:12px;" t-field="doc.pricelist_item.fixed_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_item.currency_id}"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span style="font-weight: 900;font-size:12px;" t-field="doc.product_id.list_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.product_id.currency_id}"/>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                               <!--  <span class="text-nowrap" t-field="doc.product_id.default_code"/> -->
+                                                <t t-if="doc.product_id.barcode">
+                                                    <t t-if="doc.product_id.is_blank_product">
+                                                        <span/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (barcode_info['barcode_type'], doc.product_id.barcode, 800, 150)" style="width: 220px;height:14px;display: block;margin-left:-20px; "/>
+                                                        <span class="text-nowrap" t-field="doc.product_id.default_code"/>-
+                                                        <span t-field="doc.product_id.barcode"/>
+                                                    </t>
+                                                </t>
+                                            </div>
+                                        </td>
+                                    </t>
+                                    <t t-else="">
+                                      <t t-set="barcode_size" t-value="'width:33mm;height:4mm'"/>
+                                       <t t-set="table_style" t-value="'border: 0px solid black;'"/>
+                                        <t t-if="prod_cnt == 0">
+                                            <t t-set="table_style" t-value="'width:48mm !important; height:11.10mm !important;padding-top:8.5mm !important;' + table_style"/>
+                                        </t>
+                                        <t t-else="">
+                                            <t t-set="table_style" t-value="'width:48mm !important; height:11.10mm !important;padding-top:10mm !important;' + table_style"/>
+                                        </t>
+                                        <td t-if="doc.qty &gt;= cnt">
+                                            <div t-att-style="table_style+'font-size: 60%;line-height: 115%;text-align:center;'">
+                                                <t t-if="doc.product_id.barcode_desc">
+                                                     <t t-if="doc.product_id.is_blank_product">
+                                                        <span/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="len(doc.product_id.barcode_desc) &gt; 16">
+                                                            <span t-esc="doc.product_id.barcode_desc[:16]"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-field="doc.product_id.barcode_desc"/>
+                                                        </t>
+                                                        <t t-if="doc.price_barcode">
+                                                            <span style="font-weight: 900;font-size:12px;" t-field="doc.pricelist_item.fixed_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_item.currency_id}"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span style="font-weight: 900;font-size:12px;" t-field="doc.product_id.list_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.product_id.currency_id}"/>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-if="doc.product_id.is_blank_product">
+                                                        <span/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <t t-if="len(doc.product_id.name) &gt; 16">
+                                                            <span t-esc="doc.product_id.name[:16]"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span t-field="doc.product_id.name"/>
+                                                        </t>
+                                                        <t t-if="doc.price_barcode">
+                                                            <span style="font-weight: 900;font-size:12px;" t-field="doc.pricelist_item.fixed_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_item.currency_id}"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span style="font-weight: 900;font-size:12px;" t-field="doc.product_id.list_price" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.product_id.currency_id}"/>
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                               <!--  <span class="text-nowrap" t-field="doc.product_id.default_code"/> -->
+                                                <t t-if="doc.product_id.barcode">
+                                                     <t t-if="doc.product_id.is_blank_product">
+                                                        <span/>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <img alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (barcode_info['barcode_type'], doc.product_id.barcode, 800, 150)" style="width: 220px;height:14px;display: block;margin-left:-20px; "/>
+                                                        <span class="text-nowrap" t-field="doc.product_id.default_code"/>-
+                                                        <span t-field="doc.product_id.barcode"/>
+                                                    </t>
+                                                </t>
+                                            </div>
+                                        </td>
+                                    </t>
+                                </t>
+                            </tr>
+                        </t>
+                    </table>
+                <t t-set="prod_cnt" t-value="prod_cnt+1"/>
+            </t>
+            </div>
+        </t>
+    </template>
+</odoo>

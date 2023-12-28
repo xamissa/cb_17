@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_gift_receipt_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang)"/>
+                <div class="page">
+                     <div>
+                         <center><strong style="font-size:50px">CaRRoL BoYeS</strong></center><br/>
+                            <center>
+                              <div>
+                                <strong>Your Order #</strong>
+                                <span class="text-right" t-field="o.sale_id"/>
+                              </div>
+                            </center>
+ 
+                            <center>
+                              <div>
+                                <strong>Order Date</strong>
+                                <span class="text-right" t-field="o.sale_id.date_order"/>
+                              </div>
+                            </center>
+                            
+                            <center>
+                              <div>
+                                <strong>Placed on</strong>
+                                <t t-if="'WH/PACK' in o.name and o.state == 'assigned'">
+                                  <span class="text-right" t-esc="time.strftime('%d-%m-%Y')"/>
+                                </t>
+                                <t t-else="">
+                                  <span class="text-right" t-field="o.date_done"/>
+                                </t>
+                              </div>
+                            </center><br/>
+
+                            <center><strong>Thank you for your purchase!</strong></center>
+                        </div>
+
+                        <t t-if="'WH/PACK' in o.name">
+                          <table class="table table-sm mt48">
+                            <thead>
+                              <tr>
+                                <th><strong>Items</strong></th>
+                                <th><strong>Qty</strong></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr t-foreach="o.move_ids_without_package" t-as="line">
+                                <td><span t-esc="line.product_id.name"/></td>
+                                <!--td><span t-esc="line.reserved_availability"/></td-->
+                                <!-- <td><span t-esc="line.product_uom_qty"/></td> -->
+                                <td>
+                                  <t t-if="o.state == 'assigned'">
+                                    <span t-esc="line.reserved_availability"/>
+                                  </t>
+                                  <t t-else="">
+                                    <span t-esc="line.quantity"/>
+                                  </t>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </t>
+                    
+                    
+                        <t t-else="">
+                          <table class="table table-sm mt48">
+                            <thead>
+                              <tr>
+                                <th><strong>Items</strong></th>
+                                <th><strong>Qty</strong></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr t-foreach="o.move_ids_without_package" t-as="line">
+                                <td><span t-esc="line.product_id.name"/></td>
+                                <td><span t-esc="line.quantity"/></td>
+                                <!-- <td><span t-esc="line.product_uom_qty"/></td> -->
+                              </tr>
+                            </tbody>
+                          </table>
+                        </t>
+                   
+                    <div style="padding:5px;border: 2px solid black;background-color:black;">
+                        <strong style="color: white;">Returns &amp; Exchange Policy</strong>
+                          <p style="color: white;">Please keep this gift receipt for any return or exchange. All returns and exchanges should be accompanied with a</p>
+                          <p style="color: white;">proof of purchase from one of our 24 bespoke stores or website, not older then 30 days from the date of purchase.</p>
+                          <p style="color: white;">Returns can be logged on our website or alternatively contact us at <span style="color:white;">cbonline@cbfa.co.za</span></p> 
+                          <p style="color: white;">All returns and exchanges purchased via our website or 24 bespoke stores, should be presented in a sellable</p>
+                          <p style="color: white;">condition with a proof of purchase not older than 30 days from the date of purchase. Only damaged, defective, faulty</p>
+                          <p style="color: white;">and/or incorrect orders received will be for our cost.</p>
+			  <p style="color: white;">Log returns on our website by logging into your account, navigate to 'select my orders'. Click on the order you would </p>
+			  <p style="color: white;">like to return, choose the relevant items and quantity to return. Provide the reason for returning products with images </p>
+			  <p style="color: white;">and click submit. Our team will be in contact within 48 hours.</p>
+	                  </div>
+                </div>
+                <div class="footer">
+                  <div class="text-center" style="border-top: 1px solid black;">
+                  <ul class="list-inline">
+                    <li t-if="o.company_id.phone">Phone: <span t-field="o.company_id.phone"/></li>
+                    <li>cbonline@cbfa.co.za</li>
+                    <li t-if="o.company_id.website">Website: <span t-field="o.company_id.website"/></li>
+                    <li t-if="o.company_id.vat">VAT: <span t-field="o.company_id.vat"/></li>
+                  </ul>
+                  </div>
+                </div>      
+            </t>
+         </t>
+    </template>
+  
+    <template id="report_gift_receipt">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="carrol_reports.report_gift_receipt_document" t-lang="o.partner_id.lang"/>
+        </t>
+    </template>
+
+    <record id="action_report_gift_receipt" model="ir.actions.report">
+        <field name="name">Gift Receipt</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">carrol_reports.report_gift_receipt</field>
+        <field name="report_file">carrol_reports.report_gift_receipt</field>
+        <field name="print_report_name">'Gift Receipt - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
+

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_confirm_purchase_order" model="ir.ui.view">
+            <field name="name">confirm.purchase.order</field>
+            <field name="model">purchase.order.confirm</field>
+            <field name="arch" type="xml">
+            <form string="Purchase Approval">
+		            <p>You have enough access, you can proceed to Validate the order.</p>
+                <group>
+                    <footer>
+                        <button
+                            name="confim_orders"
+                            string="Validate Purchase Order"
+                            type="object" 
+                            class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </group>
+            </form>
+            </field>
+        </record>
+        <record id="view_send_for_approval" model="ir.ui.view">
+            <field name="name">confirm.purchase.order</field>
+            <field name="model">purchase.order.confirm</field>
+            <field name="arch" type="xml">
+            <form string="Purchase Order Approval">
+                <p>Send Request for approval from higher authority.</p>
+                <group>
+                    <footer>
+                        <button
+                            name="approval_request"
+                            string="Send Approval Request"
+                            type="object" 
+                            class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </group>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_send_rejection" model="ir.ui.view">
+            <field name="name">confirm.purchase.order</field>
+            <field name="model">purchase.order.confirm</field>
+            <field name="arch" type="xml">
+            <form string="Approval Rejection">
+                <p>Reject Purchase Order. Mention Reject note.</p>
+                <group>
+                    <field name="reject_note"/>
+                </group>
+                <group>
+                    <footer>
+                        <button
+                            name="reject_approval_request"
+                            string="Ask for Changes(Reject)"
+                            type="object" 
+                            class="oe_highlight"/>
+                        <!-- <button
+                            name="cancel"
+                            string="Cancel"
+                            type="object" 
+                            class="oe_highlight"/> -->
+                    </footer>
+                </group>
+            </form>
+            </field>
+        </record>
+
+       
+        <record id="action_confirm_purchase_orders" model="ir.actions.act_window">
+            <field name="name">Confirm Purchase Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.confirm</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_confirm_purchase_order"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

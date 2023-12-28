@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sale_dynamic_barcode_labels_new">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="doc">
+                <t t-foreach="range(doc.qty)" t-as='l'>
+                    <div style="width:50mm !important; height:15mm !important;padding-top:2%;">
+                        <div style="width:50mm !important;">
+                            <table style="font-size:12px !important; width:50mm !important;">
+                                <t t-set="barcode_info" t-value="get_barcode_details_info"/>
+                                <tr>
+                                    <t t-if="doc.product_id.barcode_desc">
+                                        <th style="text-align: center !important;font-size:12px !important;">
+                                            <t t-if="len(doc.product_id.barcode_desc) &gt; 30">
+                                                <strong t-esc="doc.product_id.barcode_desc[:30]"/>&amp;nbsp;
+                                            </t>
+                                            <t t-else="">
+                                                <strong t-field="doc.product_id.barcode_desc" />&amp;nbsp;
+                                            </t>
+                                            <span t-field="doc.product_id.list_price" t-options='{"widget": "monetary", "display_currency": doc.product_id.currency_id}'/>
+                                       </th>
+                                    </t>
+                                    <t t-else="">
+                                        <th style="text-align: center;font-size:15px !important;">
+                                            <t t-if="len(doc.product_id.name) &gt; 30">
+                                                <strong t-esc="doc.product_id.name[:30]"/>&amp;nbsp;
+                                            </t>
+                                            <t t-else="">
+                                                <strong t-field="doc.product_id.name" />&amp;nbsp;
+                                            </t>
+                                            <span t-field="doc.product_id.list_price" t-options='{"widget": "monetary", "display_currency": doc.product_id.currency_id}'/>
+                                        </th>
+                                    </t>
+                                </tr>
+                                <t t-if="doc.product_id.attribute_line_ids">
+                                    <tr>
+                                        <td style="text-align: center;font-size:12px !important;">
+                                            <span t-foreach="doc.product_id.product_template_attribute_value_ids" t-as="attribute_value1">
+                                                <strong t-esc="attribute_value1.name+','"/>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <td style="text-align: center;font-size:10px !important;">
+                                        <strong t-field="doc.product_id.default_code"/>
+                                    </td>
+                                </tr>
+                                <t t-if="doc.product_id.barcode">
+                                    <tr>
+                                        <td style="text-align:center">
+                                            <strong t-field="doc.product_id.barcode" style="font-size:12px !important;"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                    <div style="page-break-before:always;"/>
+                </t>
+                <div style="page-break-before:always;"/>
+            </t>
+        </t>
+    </template>
+</odoo>

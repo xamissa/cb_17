@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="stock_product_barcode_inherit" inherit_id="stock.label_transfer_template_view_pdf">
+        <xpath expr="//t[@t-as='item']//table//tr[1]//th" position="replace">
+            <th class="table-active text-left" style="height:4rem;">
+                <t t-if="move.product_id.barcode_desc">
+                    <span t-esc="move.product_id.barcode_desc"/>
+                </t>
+                <t t-else="">
+                    <span t-esc="move.product_id.display_name"/>
+                </t>
+            </th>
+        </xpath>
+    </template>
+
+</odoo>

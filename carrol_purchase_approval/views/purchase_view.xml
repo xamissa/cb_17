@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="purchase_order_approval_view_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_rfq_send']" position="after">
+                <field name="to_approve" invisible="True"/>
+                <field name="is_approved" invisible="True"/>
+                <button name="send_for_approval" string="Send for Approval" class="oe_highlight" type="object" 
+                    invisible="state not in ['draft','sent']"/>
+                <button name="validate_order" string="Validate Order" class="oe_highlight" type="object" 
+                    invisible="state != 'purchase_to_validate'"/>
+                <button name="final_approval" string="Final Approval" class="oe_highlight" type="object" 
+                    invisible="state != 'purchase_to_final_approval'"/>
+                <button name="reject_order" string="Reject" class="oe_highlight" type="object" 
+                    invisible="state not in ['purchase_to_validate','purchase_to_final_approval']"/>
+            </xpath>
+            <xpath expr="//button[@id='bid_confirm']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@id='draft_confirm']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
+                <page string="Approval">
+                    <div>
+                        <field name="approval_ids" readonly="1" force_save="1">
+                            <tree decoration-danger="status == 'rejected'" decoration-warning="status == 'none'" decoration-success="status == 'approved'">
+                                <field name="approval_data_name"/>
+                                <field name="user_id" widget='many2one_avatar_user'/>
+                                <field name="status"/>
+                                <field name="approval_date"/>
+                                <field name="required_user_ids" widget="many2many_tags"/>
+                            </tree>
+                        </field>
+                    </div>
+                </page>
+            </xpath>
+             <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="readonly">state in ['purchase_to_validate','purchase_to_final_approval','done','purchase']</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']" position="attributes">
+                <attribute name="readonly">state in ['purchase_to_validate','purchase_to_final_approval','done','purchase']</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

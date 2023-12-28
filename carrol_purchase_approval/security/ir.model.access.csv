@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+carrol_purchase_approval.access_purchase_order_approval,access_purchase_order_approval,carrol_purchase_approval.model_purchase_order_approval,base.group_user,1,1,1,1
+carrol_purchase_approval.access_purchase_approval,access_purchase_approval,carrol_purchase_approval.model_purchase_approval,base.group_user,1,1,1,1
+carrol_purchase_approval.access_purchase_order_confirm,access_purchase_order_confirm,carrol_purchase_approval.model_purchase_order_confirm,base.group_user,1,1,1,1

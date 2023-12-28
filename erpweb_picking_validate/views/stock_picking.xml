@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="stock_location_form_view_virtual" model="ir.ui.view">
+        <field name="name">stock.location.virtual</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form" />
+        <field name="arch" type="xml">
+            <field name="return_location" position="after">
+                <field name="virtual_location"/>
+            </field>
+        </field>
+    </record>         
+</odoo>
+
+

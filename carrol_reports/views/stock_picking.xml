@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+         <record id="stock_picking_form_cartons" model="ir.ui.view">
+            <field name="name">stock.picking.cartons</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                    <field name="no_of_cartons"/>
+                    <field name="picker_name"/>
+                    <field name="packer"/>
+                    <field name="double_checker"/>
+                    <field name="quality_checker"/>
+                    <field name="magento_gift_id" widget="many2many_tags"/>
+                </field>
+                <field name="location_dest_id" position="after">
+                    <field name="freight_mode"/>
+                    <field name="on_delivery_addr"/>
+                </field>
+                <xpath expr="//page[@name='extra']//field[@name='group_id']" position="after">
+                    <field name="client_order_ref"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- carrolboyes_custom_14 After remove comment kevin
+        <record id="product_template_form_view_inherit_add_fields1" model="ir.ui.view">
+            <field name="name">product.template.form.inherit3</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="carrolboyes_custom_14.product_template_form_view_inherit_add_fields"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sub_product_group']" position="after">
+                    <field name="spaces"/>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="carrol_shipping_method_street" model="ir.ui.view">
+            <field name="name">delivery.carrier.street</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="street"/>
+                    <field name="phone" widget="phone"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="location_create_access" model="res.groups">
+                <field name="name">Access to Create Location</field>
+                <field name="comment">The user is allowed to create location</field>
+                <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+    </data>
+</odoo>
+
+

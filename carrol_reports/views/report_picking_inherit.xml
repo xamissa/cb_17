@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="carrol_report_picking_operation_inherit" inherit_id="stock.report_picking">
+            <xpath expr="//h1[@t-field='o.name']" position="after">
+                <t t-set="total_qty" t-value="0"/>
+            </xpath>
+            <xpath expr="//table[1]" position="after">
+                <div class="clearfix" name="so_total_summary">
+                    <div id="total" class="row" name="total">
+                        <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                            <table class="table table-sm table-borderless">
+                                <tr class="border-black o_total">
+                                    <td><strong>Total Quantity</strong></td>
+                                    <td class="text-right">
+                                        <span t-esc="total_qty"/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black o_total">
+                                    <td><strong>Number of Cartons</strong></td>
+                                    <td class="text-right">
+                                        <span t-esc="o.no_of_cartons"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div t-if="o.magento_gift_id" name="magento_gift">
+                    <strong>Magento Gift Message:</strong>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th><strong>Product</strong></th>
+                                <th><strong>Customer</strong></th>
+                                <th><strong>From</strong></th>
+                                <th><strong>To</strong></th>
+                                <th><strong>Message</strong></th>
+                                <th><strong>Sku</strong></th>
+                                <th><strong>Gift Message ID</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.magento_gift_id" t-as="line">
+                                <td><span t-esc="line.product"/></td>
+                                <td><span t-esc="line.customer_id.name"/></td>
+                                <td><span t-esc="line.sender"/></td>
+                                <td><span t-esc="line.recipient"/></td>
+                                <td><span t-esc="line.message"/></td>
+                                <td><span t-esc="line.sku"/></td>
+                                <td><span t-esc="line.gift_message_id"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </xpath>
+             <xpath expr="//h1[@t-field='o.name']" position="before">
+                    <div>
+                        <strong>Picker's Name:</strong>
+                        <span t-field="o.picker_name"/>
+                    </div>
+                    <div>
+                        <strong>Packer's Name:</strong>
+                        <span t-field="o.packer"/>
+                    </div>
+                    <div>
+                        <strong>Double Checker's Name:</strong>
+                        <span t-field="o.double_checker"/>
+                    </div>
+                    <div>
+                        <strong>Quality Checker's Name:</strong>
+                        <span t-field="o.quality_checker"/>
+                    </div>
+                    <div>
+                        <strong>Customer Delivery Address:</strong>
+                        <span t-field="o.on_delivery_addr"/>
+                    </div>
+                   <!--  <t t-if="o.delivery_option == 'COLLECTION'">
+                        <div>
+                            <strong>Customer Name:</strong>
+                            <span t-field="o.partner_id.name"/>
+                        </div>
+                        <div>
+                            <strong>Customer Phone:</strong>
+                            <span t-field="o.partner_id.phone"/>
+                        </div>
+                        <div>
+                            <strong>Customer Mobile:</strong>
+                            <span t-field="o.partner_id.mobile"/>
+                        </div>
+                    </t> -->
+                    <div>
+                        <strong>Customer Email Address:</strong>
+                        <span class="text-right" t-field="o.partner_id.email"/>
+                    </div>
+                <br/>
+            </xpath>
+           
+            <xpath expr="//div[@name='div_sched_date']" position="after">
+                <div class="col-auto" name="div_freight_mode">
+                    <strong>Freight Mode:</strong>
+                    <p t-field="o.freight_mode"/>
+                </div>
+                <div class="col-auto" name="div_cust_ref" t-if="o.client_order_ref">
+                    <strong>Customer Reference:</strong>
+                    <p t-field="o.client_order_ref"/>
+                </div>
+            </xpath>
+            <!-- Kevin Comment code becuse we need to custome module after inherit -->
+            <!-- <xpath expr="//div[@name='div_incoming_address']" position="replace">
+                <div class="col-5 offset-1" name="div_incoming_address">
+                    <t t-if="o.delivery_option == 'COLLECTION'">
+                        <t t-esc="o.shipping_description"/>
+                        <t t-if="o.carrier_id.street">
+                          <br/><t t-esc="o.carrier_id.street"/>
+                        </t>
+                        <t t-if="o.carrier_id.phone">
+                          <br/>Phone:<t t-esc="o.carrier_id.phone"/>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <div t-if="o.picking_type_id.code=='incoming' and o.partner_id">
+                            <span><strong>Vendor Address:</strong></span>
+                        </div>
+                        <div t-if="o.picking_type_id.code=='internal' and o.partner_id">
+                            <span><strong>Warehouse Address2:</strong></span>
+                        </div>
+                        <div t-if="o.picking_type_id.code=='outgoing' and o.partner_id">
+                            <span><strong>Customer Address:</strong></span>
+                        </div>
+                        <div t-if="o.partner_id" name="partner_header">
+                            <div t-field="o.partner_id"
+                               t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                            <p t-if="o.sudo().partner_id.vat"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.sudo().partner_id.vat"/></p>
+                        </div>
+                    </t>
+                </div>
+            </xpath> -->
+
+            <xpath expr="//table[1]//tbody//tr//td[2]" position="inside">
+                <t t-if="o.state != 'done'" t-set="total_qty" t-value="total_qty + ml.move_id.product_uom_qty"/>
+                <t t-if="o.state == 'done'" t-set="total_qty" t-value="total_qty + ml.quantity"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

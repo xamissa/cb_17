@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="my_mail_activity_action" model="ir.actions.act_window">
+        <field name="name">My Activities</field>
+        <field name="res_model">mail.activity</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+
+    <menuitem
+      id="menu_my_mail_activities"
+      name="My Activities"
+      action="my_mail_activity_action"
+      parent="sale.menu_sale_config"
+      sequence="11"
+    />
+</odoo>

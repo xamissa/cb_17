@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="carrol_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.carrol</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="sale_order_template_id" position="after">
+                    <field name="freight_mode"/>
+                    <field name="on_delivery_addr"/>
+                    <field name="magento_gift_id" widget="many2many_tags"/>
+                </field>
+            </field>
+         </record>
+    </data>
+</odoo>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="carrol_report_sale_order_doc_inherit" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//div[@id='informations']" position="inside">
+                <div t-if="doc.freight_mode" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Freight Mode:</strong>
+                    <p class="m-0" t-field="doc.freight_mode"/>
+                </div>
+            </xpath>
+            <xpath expr="//span[@name='order_note']" position="before">
+                <p t-if="doc.discount_description">
+                    Discount Description: <span t-field="doc.discount_description"/>
+                </p>
+            </xpath>
+        </template>
+    </data>
+</odoo>

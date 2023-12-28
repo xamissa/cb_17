@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="carrol_report_invoice_inherit" inherit_id="account.report_invoice_document">
+            <xpath expr="//t[@t-set='address']//div[@t-if='o.partner_id.vat']" position="replace">
+                <div t-if="o.partner_id.vat" class="mt16">
+                    <!--t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label"/>
+                    <t t-else="">VAT Nr</t--><span>VAT Nr : </span><span t-field="o.partner_id.vat"/>
+                </div>
+            </xpath>
+            <xpath expr="//h2//span[1]" position="replace">
+                <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Tax</span>
+            </xpath>
+        </template>
+    </data>
+</odoo>

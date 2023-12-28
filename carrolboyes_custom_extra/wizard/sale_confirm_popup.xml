@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_sale_confirm_popup" model="ir.ui.view">
+            <field name="name">sale.confirm.popup.form</field>
+            <field name="model">sale.confirm.popup</field>
+            <field name="arch" type="xml">
+            <form string="Sale Order">
+		      <p>Hey, no stock of <field name="prd_lst" nolabel="1"/> in your location <field name="loc_lst" nolabel="1"/> – Are you sure you want to proceed ?</p>
+                <group>
+                    <field name="prd_lst" invisible="1"/>
+                    <field name="loc_lst" invisible="1"/>
+                </group>
+                <group>
+                    <footer>
+                        <button name="sale_order_confirm" string="Yes" type="object" class="oe_highlight"/>
+                        <button string="NO" class="oe_link" special="cancel" />
+                    </footer>
+                </group>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_confirm_popup_sale_orders" model="ir.actions.act_window">
+            <field name="name">Confirm Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.confirm.popup</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_sale_confirm_popup"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

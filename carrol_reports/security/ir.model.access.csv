@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+carrol_reports.access_freight_company,access_freight_company,carrol_reports.model_freight_company,base.group_user,1,1,1,1
+carrol_reports.access_magento_gift,access_magento_gift,carrol_reports.model_magento_gift,base.group_user,1,1,1,1
+

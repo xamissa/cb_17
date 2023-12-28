@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="carrol_freight_company_form_view" model="ir.ui.view">
+            <field name="name">freight.company.form</field>
+            <field name="model">freight.company</field>
+            <field name="arch" type="xml">
+                <form string="Freigh Company">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="carrol_freight_company_tree_view" model="ir.ui.view">
+            <field name="name">freight.company.tree</field>
+            <field name="model">freight.company</field>
+            <field name="arch" type="xml">
+                <tree string="Freigh Company">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carrol_freight_company_action" model="ir.actions.act_window">
+            <field name="name">Freight Company</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">freight.company</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No Freight Company found
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="carrol_freight_company_menu" action="carrol_freight_company_action" parent="stock.menu_stock_config_settings"/>
+    </data>
+</odoo>

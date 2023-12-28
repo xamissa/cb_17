@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="carrol_report_delivery_slip_inherit" inherit_id="stock.report_delivery_document">
+            <xpath expr="//div[@name='partner_header']" position="replace">
+                <t t-if="partner" name="partner_header">
+                    <t t-set="address">
+                    <div t-esc="partner"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'/>
+                   </t>
+                </t>
+            </xpath>
+            <xpath expr="//div[@name='div_sched_date']" position="after">
+                <div class="col-auto" name="div_freight_mode">
+                    <strong>Freight Mode:</strong>
+                    <p t-field="o.freight_mode"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[@class='page']//h2" position="before">
+                <div>
+                    <strong>Picker's Name:</strong>
+                    <span t-field="o.picker_name"/>
+                </div>
+                <div>
+                    <strong>Packer's Name:</strong>
+                    <span t-field="o.packer"/>
+                </div>
+                <div>
+                    <strong>Double Checker's Name:</strong>
+                    <span t-field="o.double_checker"/>
+                </div>
+                <div>
+                    <strong>Quality Checker's Name:</strong>
+                    <span t-field="o.quality_checker"/>
+                </div>
+                <div>
+                    <strong>Customer Delivery Address:</strong>
+                    <p t-field="o.on_delivery_addr"/>
+                </div>
+                <div>
+                    <strong>Customer Email Address:</strong>
+                    <span class="text-right" t-field="o.partner_id.email"/>
+                </div>
+            </xpath>
+            <xpath expr="//div[@name='signature']" position="before">
+                <div class="clearfix" name="so_total_summary">
+                    <div id="total" class="row" name="total">
+                        <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                            <table class="table table-sm table-borderless">
+                                <td><strong>Number of Cartons</strong></td>
+                                <td class="text-right">
+                                    <span t-esc="o.no_of_cartons"/>
+                                </td>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div t-if="o.magento_gift_id" name="magento_gift">
+                    <strong>Magento Gift Message:</strong>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th><strong>Product</strong></th>
+                                <th><strong>Customer</strong></th>
+                                <th><strong>From</strong></th>
+                                <th><strong>To</strong></th>
+                                <th><strong>Message</strong></th>
+                                <th><strong>Sku</strong></th>
+                                <th><strong>Gift Message ID</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.magento_gift_id" t-as="line">
+                                <td><span t-esc="line.product"/></td>
+                                <td><span t-esc="line.customer_id.name"/></td>
+                                <td><span t-esc="line.sender"/></td>
+                                <td><span t-esc="line.recipient"/></td>
+                                <td><span t-esc="line.message"/></td>
+                                <td><span t-esc="line.sku"/></td>
+                                <td><span t-esc="line.gift_message_id"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>
