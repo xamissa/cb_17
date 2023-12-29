@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="carrol_view_picking_form" model="ir.ui.view">
+            <field name="name">carrol.stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button string="Import Waybill DPD" name="carrol_waybills" type="object" class="oe_highlight" 
+                        invisible="tracking_ref == False or picking_type_code != 'outgoing'"/>
+                </xpath>
+                <xpath expr="//sheet//group//group//field[@name='origin']" position="after">
+                    <field name="tracking_ref" invisible='1'/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="carrol_view_partner_form" model="ir.ui.view">
+            <field name="name">carrol.stock.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet//group//group//field[@name='vat']" position="after">
+                    <field name="waybill_id"/>
+                    <field name="waybill_postcode"/>
+                    <field name="waybill_city"/>
+                    <field name="waybill_state"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="carrolboyes_postcode_form" model="ir.ui.view">
+            <field name="name">carrol.postcode.form</field>
+            <field name="model">carrol.postcode</field>
+            <field name="arch" type="xml">
+                <form create="false" edit="false">           
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" required="True" />
+                                <field name="postcode" />
+                                <field name="city"/>
+                                <field name="state" />
+                            </group>
+                        </group>
+                    </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="carrolboyes_postcode_tree_view" model="ir.ui.view">
+            <field name="name">carrol.postcode.tree</field>
+            <field name="model">carrol.postcode</field>
+            <field name="arch" type="xml">
+                <tree create="false">
+                    <field name="name"/>
+                    <field name="payload" />
+                </tree>
+            </field>
+        </record>
+        <record id="carrolboyes_postcode_action" model="ir.actions.act_window">
+            <field name="name">Waybill PostCode</field>
+            <field name="res_model">carrol.postcode</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="carrolboyes_postcode_tree_view"/>
+        </record>
+
+        
+
+        
+        <menuitem id="carrolboyes_waybill" name="Waybill" parent="stock.menu_stock_config_settings" />
+        <menuitem id="carrolboyes_postcode_menu" name="Waybill Log" parent="carrolboyes_waybill" action="carrolboyes_postcode_action"/>
+        
+
+        <record id="carrol_postcode_get_data_form" model="ir.ui.view">
+            <field name="name">postcode.get.data.form</field>
+            <field name="model">postcode.get.data</field>
+            <field name="arch" type="xml">
+                <form create="false">
+                    <header>
+                        <button string="token" name="get_token" type="object" class="oe_highlight" />
+                        <button string="Get Data" name="get_data" type="object" class="oe_highlight" />
+                    </header>
+                    <sheet>                        
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="password" />
+                                <field name="account_number"/>
+                                <field name="order_type"/>
+                            </group>
+                        </group>
+                    </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="carrol_postcode_get_data_form_tree_view" model="ir.ui.view">
+            <field name="name">postcode.get.data.tree</field>
+            <field name="model">postcode.get.data</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="password" />
+                    <field name="account_number"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carrol_postcode_get_data_action" model="ir.actions.act_window">
+            <field name="name">Waybill Data</field>
+            <field name="res_model">postcode.get.data</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="carrol_postcode_get_data_form_tree_view"/>
+        </record>
+
+        <menuitem id="carrol_postcode_get_data_menu" name="Waybill Token" parent="carrolboyes_waybill" action="carrol_postcode_get_data_action"/> -->
+
+    </data>
+</odoo>

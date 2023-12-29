@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+carrolboyes_waybill.access_postcode_get_data,access_postcode_get_data,carrolboyes_waybill.model_postcode_get_data,base.group_user,1,1,1,1
+carrolboyes_waybill.access_carrol_postcode,access_carrol_postcode,carrolboyes_waybill.model_carrol_postcode,base.group_user,1,1,1,1
+carrolboyes_waybill.access_data_log,access_data_log,carrolboyes_waybill.model_data_log,base.group_user,1,1,1,1
+carrolboyes_waybill.access_waybill_data_log,access_waybill_data_log,carrolboyes_waybill.model_waybill_data_log,base.group_user,1,1,1,1
