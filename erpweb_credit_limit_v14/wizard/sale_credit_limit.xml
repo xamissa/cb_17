@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_sale_credit_limit" model="ir.ui.view">
+            <field name="name">sale.credit.limit.form</field>
+            <field name="model">sale.credit.limit</field>
+            <field name="arch" type="xml">
+                <form string="Sales Order">
+                    <p class="oe_grey">
+                        The customers credit limit is exceeded.
+                    </p>
+                    <footer>
+                        <button name="button_ok" string="OK" type="object" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sale_overdue_invoice" model="ir.ui.view">
+            <field name="name">sale.overdue.invoice.form</field>
+            <field name="model">sale.credit.limit</field>
+            <field name="arch" type="xml">
+                <form string="Sales Order">
+                    <p class="oe_grey">
+                        The customers credit limit is exceeded.
+                    </p>
+                    <footer>
+                        <button name="button_ok" string="OK" type="object" class="btn-primary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+</odoo>
