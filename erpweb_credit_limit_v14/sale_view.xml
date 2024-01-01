@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_customer" model="ir.ui.view">
+            <field name="name">res.partner.view.customer</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="property_payment_term_id" position="after">
+                    <field name="cr_limit_access" invisible="1"/>
+                    <field name="credit_limit" readonly="cr_limit_access==False"/>
+                    <!-- <field name="credit"/> -->
+                </field>
+                <field name="property_payment_term_id" position="replace">
+                    <field name="property_payment_term_id" readonly="cr_limit_access==False"/>
+                </field>
+            </field>
+        </record>
+
+    <record id="sale_order_pyament_term_readonly" model="ir.ui.view">
+        <field name="name">sale.order.payment.term.readonly</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="replace">
+                <field name="payment_term_id" options="{'no_create': True}" force_save="1" readonly='1'/>
+            </field>
+            <field name="tax_totals" position="after">
+                <field name="after_invoice_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="sale_order_invoiced_amount_view_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="priority">2</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <field name="invoice_status" position="after">
+                <!-- <field name="invoiced_amount"/> -->
+                <field name="after_invoice_amount" widget="monetary"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_picking_form_view_credit_limit" model="ir.ui.view">
+        <field name="name">stock.picking.form.view</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_validate'][hasclass('o_btn_validate')]" position="before">
+                <field name="sale_id" invisible="1"/>
+                <button name="ignore_credit_limit" class="oe_highlight" string="Ignore Credit Limit and Validate" type="object" groups="erpweb_credit_limit_v14.group_order_confirm" invisible="state in ['waiting','confirmed']    or sale_id == False"/>
+            </xpath>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="sale_id" readonly="1"/>
+                <field name="invoice_status"/>
+            </xpath>
+        </field>
+    </record>    
+    
+    <record id="vpicktree_inherit_stock_invoice_status" model="ir.ui.view">
+        <field name="name">stock.picking.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="invoice_status"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_picking_internal_search_inherit_stock_picking_payment_stauts" model="ir.ui.view">
+        <field name="name">stock.picking.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='available']" position="before">
+                <filter name="paid" string="Paid" domain="[('invoice_status', '=', 'Paid')]" />
+                <filter name="not_paid" string="Not Paid" domain="[('invoice_status', '=', 'Not Paid')]" />
+            </xpath>
+            <xpath expr="//filter[@name='expected_date']" position="before">
+                <filter string="Payment Status" name="payment_status" domain="[]" context="{'group_by': 'invoice_status'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="carrol_res_partner_view_team" model="ir.ui.view">
+        <field name="name">res.partner.view.team</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="sales_team.res_partner_view_team" />
+        <field name="arch" type="xml">
+            <field name="team_id" position="replace">
+                <field name="team_id"/>
+            </field>
+        </field>
+    </record>
+    
+    </data>
+</odoo>

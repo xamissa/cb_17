@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_import_sale_order" model="ir.ui.view">
+            <field name="name">confirm.sale.order</field>
+            <field name="model">sale.order.confirm</field>
+            <field name="arch" type="xml">
+            <form string="Sale Order">
+		    <p>The customers credit limit is exceeded.</p>
+                   <p groups="erpweb_credit_limit_v14.group_order_confirm">This operation will confirm the Sale Order, Do you want to
+                   continue?"</p>
+                <group>
+                    <footer>
+                        <button
+                            name="confim_orders"
+                            string="Ignore Credit Control"
+                            type="object" 
+                            class="oe_highlight" groups="erpweb_credit_limit_v14.group_order_confirm"/>
+                        
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </group>
+            </form>
+            </field>
+        </record>
+        <record id="view_import_sale_order_due_invoice" model="ir.ui.view">
+            <field name="name">confirm.sale.order</field>
+            <field name="model">sale.order.confirm</field>
+            <field name="arch" type="xml">
+            <form string="Sale Order">
+                <p>Customer have some overdue invoices, please resolve first or ignore if access.</p>
+                <group>
+                    <footer>
+                        <button
+                            name="confim_orders"
+                            string="Ignore Credit Control"
+                            type="object" 
+                            class="oe_highlight" groups="erpweb_credit_limit_v14.group_order_confirm"/>
+                        
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </group>
+            </form>
+            </field>
+        </record>
+
+        <!-- for picking -->
+        <record id="view_credit_limit_picking" model="ir.ui.view">
+            <field name="name">confirm.sale.order</field>
+            <field name="model">sale.order.confirm</field>
+            <field name="arch" type="xml">
+            <form string="Sale Order">
+		    <p>The customers credit limit is exceeded.</p>
+                   <p groups="erpweb_credit_limit_v14.group_order_confirm">This operation will confirm the Sale Order, Do you want to
+                   continue?</p>
+                <group>
+                    <footer>
+                        <button
+                            name="confim_picking"
+                            string="Ignore Credit Control"
+                            type="object" 
+                            class="oe_highlight" groups="erpweb_credit_limit_v14.group_order_confirm"/>
+                        
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </group>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_credit_limit_overdue_picking" model="ir.ui.view">
+            <field name="name">confirm.sale.order</field>
+            <field name="model">sale.order.confirm</field>
+            <field name="arch" type="xml">
+            <form string="Sale Order">
+                <p>Customer have some overdue invoices, please resolve first or continue if access.</p>
+                <group>
+                    <footer>
+                        <button
+                            name="confim_picking"
+                            string="Ignore Credit Control"
+                            type="object" 
+                            class="oe_highlight" groups="erpweb_credit_limit_v14.group_order_confirm"/>
+                        
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </group>
+            </form>
+            </field>
+        </record>
+
+
+         <!-- for invoice -->
+        <record id="view_credit_limit_invoice" model="ir.ui.view">
+            <field name="name">confirm.sale.order</field>
+            <field name="model">sale.order.confirm</field>
+            <field name="arch" type="xml">
+            <form string="Sale Order">
+		    <p>The customers credit limit is exceeded.</p>
+                   <p groups="erpweb_credit_limit_v14.group_order_confirm">This operation will confirm the Sale Order, Do you want to
+                   continue?</p>
+                <group>
+                    <footer>
+                        <button
+                            name="confim_invoices"
+                            string="Ignore Credit Control"
+                            type="object" 
+                            class="oe_highlight" groups="erpweb_credit_limit_v14.group_order_confirm"/>
+                        
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </group>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_confirm_sale_orders" model="ir.actions.act_window">
+            <field name="name">Confirm Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.confirm</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_import_sale_order" />
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
