@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <record id="product_template_form_view_inherit_import_duties" model="ir.ui.view">
+            <field name="name">product.template.form.inherit1</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="before">
+                    <field name="import_duties"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_product_form_view_duties_123" model="ir.ui.view">
+            <field name="name">product.product.form.inherit1</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="before">
+                    <field name="import_duties"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_line_price" model="ir.ui.view">
+            <field name="name">purchase.order.line.inherit1</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='price_unit']" position="replace">
+                    <field name="price_unit"  widget="monetary"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_line_action" model="ir.actions.act_window">
+            <field name="name">Purchase Order Line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" ref="purchase.purchase_order_line_tree"/>
+            <field name="search_view_id" ref="purchase.purchase_order_line_search"/>
+            <field name="context">{}</field>
+        </record>
+
+
+        <menuitem
+            action="purchase_order_line_action" 
+            id="menu_purchase_line"
+            parent="purchase.menu_procurement_management" 
+            sequence="9"/>
+
+        <record id="view_stock_move_line_partner_tree" model="ir.ui.view">
+            <field name="name">stock.move.line.inherit.parnter.tree</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_move_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_id']" position="after" >
+                    <field name="partner_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--  we shoude discuse with team 
+        <record id="view_view_inventory_form_group" model="ir.ui.view">
+            <field name="name">stock.inventory.inherit.form</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_validate'][1]" position="replace">
+                    <button name="action_validate" string="Validate Inventory" type="object" attrs="{'invisible': ['|', ('state', '!=', 'confirm'), ('line_ids', '!=', [])]}" groups="carrolboyes_sale_stock.group_validate_inventory"/>
+                </xpath>
+                <xpath expr="//button[@name='action_validate'][2]" position="replace">
+                    <button name="action_validate" string="Validate Inventory" type="object" attrs="{'invisible': ['|', ('state', '!=', 'confirm'), ('line_ids', '=', [])]}" class="oe_highlight" groups="carrolboyes_sale_stock.group_validate_inventory"/>
+                </xpath>
+            </field>
+        </record> -->
+
+</odoo>

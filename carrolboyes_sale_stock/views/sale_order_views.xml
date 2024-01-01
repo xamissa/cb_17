@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+     <record id="view_order_form_inherit_sale_stock_routes" model="ir.ui.view">
+        <field name="name">sale.order.form.sale.stock.routes</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_line']//tree//field[@name='route_id']" position="attributes">
+                <attribute name="context">{'team_id': parent.team_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']//form//field[@name='route_id']" position="attributes">
+                <attribute name="context">{'team_id': parent.team_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="team_id"/>
+                <field name="analytic_account_id"/>
+            </xpath>
+            <xpath expr="//page[@name='other_information']//field[@name='team_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='other_information']//field[@name='analytic_account_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_bank_statement_line_tree_bank_rec_widget_inherit" model="ir.ui.view">
+        <field name="name">bank.statement.line.analytic</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="inherit_id" ref="account_accountant.view_bank_statement_line_tree_bank_rec_widget" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_ref']" position="after">
+                <field name="analytic_account_id"/>
+            </xpath>
+        </field>
+    </record>
+    <!-- Check with team -->
+    <!-- <record id="oodo_view_order_form_view" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="priority">1000</field>
+        <field name="groups_id" eval="[(6, 0, [ref('carrolboyes_sale_stock.group_update_prices')])]" />
+        <field name="arch" type="xml">
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+               <attribute name="readonly">0</attribute>
+            </xpath>
+
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='discount']" position="attributes">
+               <attribute name="readonly">0</attribute>
+            </xpath>
+        </field>
+    </record> -->
+    <!--
+    <template id="assets_analytic_account" name="analytic account" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/carrolboyes_sale_stock/static/src/js/analytic_account.js"/>
+            <script type="text/javascript" src="/carrolboyes_sale_stock/static/src/js/stock_adjustment_validate.js"/>
+        </xpath>
+    </template>
+    <record id="oodo_view_order_form_view_normal" model="ir.ui.view">
+        <field name="name">sale.order.form.normal</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="groups_id" eval="[(6, 0, [ref('sales_team.group_sale_salesman')])]" />
+        <field name="arch" type="xml">
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+               <attribute name="readonly">1</attribute>
+            </xpath>
+
+            <xpath expr="//page/field[@name='order_line']/tree/field[@name='discount']" position="attributes">
+               <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record> -->
+
+    <record id="view_stock_quant_parent" model="ir.ui.view">
+        <field name="name">stock.quant.parent</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='location_id']" position="after">
+                <field name="parent_location_id"/>
+            </xpath>
+        </field>
+    </record>
+    </data>
+</odoo>

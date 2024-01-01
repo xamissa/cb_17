@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+      <record id="view_order_form_inherit_validate" model="ir.ui.view">
+        <field name="name">sale.order.form.sale.stock.routes</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+           
+        </field>
+    </record>
+   </data>
+</odoo>
