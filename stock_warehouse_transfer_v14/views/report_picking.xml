@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="swt_picking_operation_inherit" inherit_id="stock.report_picking">
+            <xpath expr="//h1[@t-field='o.name']" position="before">
+                <div>
+                    <strong>Destination Warehouse:</strong>
+                    <span t-field="o.dest_warehouse"/>
+                </div>
+                <br/>
+            </xpath>
+        </template>
+    </data>
+</odoo>
